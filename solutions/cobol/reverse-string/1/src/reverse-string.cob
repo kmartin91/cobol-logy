@@ -1,0 +1,33 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. reverse-string.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01 WS-STRING PIC X(64).
+       01 WS-TEMP PIC X(64).
+       01 WS-LENGTH PIC 999 VALUE 0.
+       01 WS-I PIC 999 VALUE 0.
+       01 WS-J PIC 999 VALUE 0.
+       01 WS-FOUND PIC 9 VALUE 0.
+
+       PROCEDURE DIVISION.
+       REVERSE-STRING.
+          MOVE 0 TO WS-LENGTH
+          PERFORM VARYING WS-I FROM 64 BY -1 UNTIL WS-I < 1 OR WS-FOUND = 1
+            IF WS-STRING(WS-I:1) NOT = SPACE
+               MOVE WS-I TO WS-LENGTH
+               MOVE 1 TO WS-FOUND
+            END-IF
+          END-PERFORM
+
+         MOVE 0 TO WS-FOUND
+      
+          MOVE SPACES TO WS-TEMP
+          MOVE 1 TO WS-J
+          PERFORM VARYING WS-I FROM WS-LENGTH BY -1 UNTIL WS-I < 1
+             MOVE WS-STRING(WS-I:1) TO WS-TEMP(WS-J:1)
+             ADD 1 TO WS-J
+          END-PERFORM
+      
+          MOVE WS-TEMP TO WS-STRING.
+
+      DISPLAY WS-STRING.
