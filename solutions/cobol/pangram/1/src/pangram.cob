@@ -1,0 +1,32 @@
+        IDENTIFICATION DIVISION.
+       PROGRAM-ID. PANGRAM.
+       ENVIRONMENT DIVISION.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01 WS-SENTENCE PIC X(60).
+       01 WS-RESULT PIC 9.
+       01 WS-UPPER-SENTENCE PIC X(60).
+       01 WS-LETTERS PIC X(26) VALUE 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.
+       01 WS-I PIC 99.
+       01 WS-COUNT PIC 99.
+       01 WS-FOUND PIC 99.
+       
+       PROCEDURE DIVISION.
+       PANGRAM.
+           MOVE FUNCTION UPPER-CASE(WS-SENTENCE) TO WS-UPPER-SENTENCE
+           MOVE 0 TO WS-COUNT
+           
+           PERFORM VARYING WS-I FROM 1 BY 1 UNTIL WS-I > 26
+               MOVE 0 TO WS-FOUND
+               INSPECT WS-UPPER-SENTENCE TALLYING WS-FOUND 
+                   FOR ALL WS-LETTERS(WS-I:1)
+               IF WS-FOUND > 0
+                   ADD 1 TO WS-COUNT
+               END-IF
+           END-PERFORM
+           
+           IF WS-COUNT = 26
+               MOVE 1 TO WS-RESULT
+           ELSE
+               MOVE 0 TO WS-RESULT
+           END-IF.
